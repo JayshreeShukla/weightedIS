@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+#include <algorithm> // for std::max
+using namespace std;
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int ans = 1, n = nums.size();
+        vector<int> dp(n, 1);
+
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < i; j++) {
+                if(nums[i] > nums[j]) {
+                    dp[i] = max(dp[i], dp[j] + 1);
+                    ans = max(ans, dp[i]);
+                }
+            }
+        }
+        return ans;
+    }
+};
+
+int main() {
+    // Example input
+    vector<int> nums = {10, 9, 2, 5, 3, 7, 101, 18};
+
+    // Create a Solution object
+    Solution solution;
+
+    // Call the function and print the result
+    int result = solution.lengthOfLIS(nums);
+    cout << "Length of Longest Increasing Subsequence: " << result << endl;
+
+    return 0;
+}
